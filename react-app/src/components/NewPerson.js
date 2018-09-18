@@ -6,15 +6,17 @@ class NewPerson extends Component {
     super();
     this.state = {
       formData: {
-        firstName: "",
-        lastName: "",
-        city: "",
+        email: "",
+        Name: "",
+        username: "",
+        password: "",
       },
       submitted: false,
     }
-    this.handleFChange = this.handleFChange.bind(this);
-    this.handleLChange = this.handleLChange.bind(this);
-    this.handleCChange = this.handleCChange.bind(this);
+    this.handleNChange = this.handleNChange.bind(this);
+    this.handleUChange = this.handleUChange.bind(this);
+    this.handleEChange = this.handleEChange.bind(this);
+    this.handlePChange = this.handlePChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
@@ -30,14 +32,17 @@ class NewPerson extends Component {
       });
   }
 
-  handleFChange(event) {
-    this.state.formData.firstName = event.target.value;
+  handleNChange(event) {
+    this.state.formData.Name = event.target.value;
   }
-  handleLChange(event) {
-    this.state.formData.lastName = event.target.value;
+  handleUChange(event) {
+    this.state.formData.username = event.target.value;
   }
-  handleCChange(event) {
-    this.state.formData.city = event.target.value;
+  handleEChange(event) {
+    this.state.formData.email = event.target.value;
+  }
+  handlePChange(event) {
+    this.state.formData.password = event.target.value;
   }
 
   render() {
@@ -45,22 +50,26 @@ class NewPerson extends Component {
     return (
       <div className="App">
         <header className="App-header">
-          <h1 className="App-title">Create a New Person</h1>
+          <h1 className="App-title">Sign Up</h1>
         </header>
         <br/><br/>
         <div className="formContainer">
           <form onSubmit={this.handleSubmit}>
             <div className="form-group">
-                <label>First Name</label>
-                <input type="text" className="form-control" value={this.state.firstName} onChange={this.handleFChange}/>
+                <label>Name</label>
+                <input type="text" className="form-control" value={this.state.Name} onChange={this.handleNChange}/>
             </div>
             <div className="form-group">
-                <label>Last Name</label>
-                <input type="text" className="form-control" value={this.state.lastName} onChange={this.handleLChange}/>
+                <label>User Name</label>
+                <input type="text" className="form-control" value={this.state.username} onChange={this.handleUChange}/>
             </div>
             <div className="form-group">
-                <label>City</label>
-                <input type="text" className="form-control" value={this.state.city} onChange={this.handleCChange}/>
+                <label>Email</label>
+                <input type="email" className="form-control" value={this.state.email} onChange={this.handleEChange}/>
+            </div>
+            <div className="form-group">
+                <label>Password</label>
+                <input type="password" className="form-control" value={this.state.password} onChange={this.handlePChange}/>
             </div>
                 <button type="submit" className="btn btn-default">Submit</button>
           </form>
@@ -69,7 +78,7 @@ class NewPerson extends Component {
         {this.state.submitted &&
           <div>
             <h2>
-              New person successfully added.
+              New user successfully added.
             </h2>
              This has been printed using conditional rendering.
           </div>

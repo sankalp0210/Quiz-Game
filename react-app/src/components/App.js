@@ -20,19 +20,19 @@ class App extends Component {
                 </div>
                 <ul className="nav navbar-nav">
                   <li><Link to={'/'}>Home</Link></li>
-                  <li><Link to={'/NewPerson'}>Create Person</Link></li>
-                  <li><Link to={'/EditPerson'}>Edit Person</Link></li>
-                  <li><Link to={'/DeletePerson'}>Delete Person</Link></li>
-                  <li><Link to={'/ViewPeople'}>View People</Link></li>
+                  <li><Link to={'/NewPerson'}>Sign Up</Link></li>
+                  {/* <li><Link to={'/EditPerson'}>Edit Person</Link></li> */}
+                  {/* <li><Link to={'/DeletePerson'}>Delete Person</Link></li> */}
+                  {/* <li><Link to={'/ViewPeople'}>View People</Link></li> */}
                 </ul>
               </div>
             </nav>
             <Switch>
                  <Route exact path='/' component={Home} />
                  <Route exact path='/NewPerson' component={NewPerson} />
-                 <Route exact path='/EditPerson' component={EditPerson} />
-                 <Route exact path='/DeletePerson' component={DeletePerson} />
-                 <Route exact path='/ViewPeople' component={ViewPeople} />
+                 {/* <Route exact path='/EditPerson' component={EditPerson} /> */}
+                 {/* <Route exact path='/DeletePerson' component={DeletePerson} /> */}
+                 {/* <Route exact path='/ViewPeople' component={ViewPeople} /> */}
             </Switch>
           </div>
         </Router>
