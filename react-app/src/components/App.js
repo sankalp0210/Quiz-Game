@@ -22,7 +22,7 @@ class App extends Component {
                   <li><Link to={'/'}>Home</Link></li>
                   <li><Link to={'/NewPerson'}>Sign Up</Link></li>
                   {/* <li><Link to={'/EditPerson'}>Edit Person</Link></li> */}
-                  {/* <li><Link to={'/DeletePerson'}>Delete Person</Link></li> */}
+                  <li><Link to={'/DeletePerson'}>Log In</Link></li>
                   {/* <li><Link to={'/ViewPeople'}>View People</Link></li> */}
                 </ul>
               </div>
@@ -31,7 +31,7 @@ class App extends Component {
                  <Route exact path='/' component={Home} />
                  <Route exact path='/NewPerson' component={NewPerson} />
                  {/* <Route exact path='/EditPerson' component={EditPerson} /> */}
-                 {/* <Route exact path='/DeletePerson' component={DeletePerson} /> */}
+                 <Route exact path='/DeletePerson' component={DeletePerson} />
                  {/* <Route exact path='/ViewPeople' component={ViewPeople} /> */}
             </Switch>
           </div>
