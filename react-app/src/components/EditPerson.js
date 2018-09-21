@@ -12,5 +12,5 @@ class EditPerson extends Component {
     );
   }
 }
-
+ 
 export default EditPerson;

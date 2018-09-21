@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-import './NewPerson.css';
+import './SignUp.css';
+import UserProfile from './UserProfile';
+import PropTypes from 'prop-types';
 
 class SignUp extends Component {
   constructor() {
@@ -19,7 +21,16 @@ class SignUp extends Component {
     this.handlePChange = this.handlePChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
-
+  static contextTypes = {
+    router: PropTypes.object,
+  }
+  componentDidMount() {
+    const name = UserProfile.getName();
+    if(name!="")
+    {
+      this.context.router.history.push("/Profile");
+    }
+  }
   handleSubmit (event) {
     event.preventDefault();
     fetch('http://localhost:8080/people', {
@@ -28,7 +39,8 @@ class SignUp extends Component {
    })
       .then(response => {
         if(response.status >= 200 && response.status < 300)
-          this.setState({submitted: true});
+        this.setState({submitted: true});
+        this.context.router.history.push("/LogIn");
       });
   }
 
@@ -44,9 +56,16 @@ class SignUp extends Component {
   handlePChange(event) {
     this.state.formData.password = event.target.value;
   }
-
   render() {
-
+    const name = UserProfile.getName();
+    // if(name != "")
+    // {
+    //   return (
+    //     <div className="Error">
+    //       <h2>You are already logged in.</h2>
+    //     </div>
+    //   )
+    // }
     return (
       <div className="App">
         <header className="App-header">

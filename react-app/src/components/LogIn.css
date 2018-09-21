@@ -16,3 +16,6 @@
 .App-intro {
   font-size: large;
 }
+.Error {
+  color: red;
+}

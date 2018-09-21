@@ -29,3 +29,6 @@ th, td {
   text-align: center;
   padding: 15px;
 }
+.Error {
+  color: red;
+}

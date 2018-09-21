@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './ViewPeople.css';
-
+import UserProfile from './UserProfile';
 class ViewPeople extends Component {
   constructor() {
     super();
@@ -18,28 +18,37 @@ class ViewPeople extends Component {
   }
 
   render() {
+    const name = UserProfile.getName();
+    if(name!="asankalp9@gmail.com")
+    {
+      return (
+        <div className="Error">
+          <h2>You are denied access to this page.</h2>
+        </div>
+      )
+    }
     return (
       <div className="App">
         <header className="App-header">
-          <h1 className="App-title">View All People</h1>
+          <h1 className="App-title">View All Users</h1>
         </header>
 
         <table className="table-hover">
           <thead>
             <tr>
-              <th>ID</th>
-              <th>First Name</th>
-              <th>Last Name</th>
-              <th>City</th>
+              <th>email</th>
+              <th>Name</th>
+              <th>User Name</th>
+              <th></th>
             </tr>
           </thead>
           <tbody>{this.state.data.map(function(item, key) {
                return (
                   <tr key = {key}>
-                      <td>{item.id}</td>
-                      <td>{item.firstname}</td>
-                      <td>{item.lastname}</td>
-                      <td>{item.city}</td>
+                      <td>{item.email}</td>
+                      <td>{item.Name}</td>
+                      <td>{item.username}</td>
+                      <td></td>
                   </tr>
                 )
              })}
