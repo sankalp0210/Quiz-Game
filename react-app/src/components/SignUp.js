@@ -8,16 +8,13 @@ class SignUp extends Component {
     super();
     this.state = {
       formData: {
-        email: "",
-        Name: "",
         username: "",
         password: "",
       },
-      submitted: false,
+      error: false,
+      errorMsg: "",
     }
-    this.handleNChange = this.handleNChange.bind(this);
     this.handleUChange = this.handleUChange.bind(this);
-    this.handleEChange = this.handleEChange.bind(this);
     this.handlePChange = this.handlePChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
@@ -26,7 +23,7 @@ class SignUp extends Component {
   }
   componentDidMount() {
     const name = UserProfile.getName();
-    if(name!="")
+    if(name!=="")
     {
       this.context.router.history.push("/Profile");
     }
@@ -38,53 +35,49 @@ class SignUp extends Component {
      body: JSON.stringify(this.state.formData),
    })
       .then(response => {
-        if(response.status >= 200 && response.status < 300)
-        this.setState({submitted: true});
-        this.context.router.history.push("/LogIn");
+        if(response.status >= 200 && response.status < 300){
+        this.context.router.history.push("/LogIn");}
+        else if(response.status >= 300 && response.status < 350){
+          this.setState({ error: true });
+          this.setState({ errorMsg: "username already exists" });
+        }
+        else{
+          console.log("sadnabxhv")
+          this.setState({ error: true });
+          this.setState({ errorMsg: "Fields Cannot be left empty" });  
+        }
       });
   }
 
-  handleNChange(event) {
-    this.state.formData.Name = event.target.value;
-  }
+  
   handleUChange(event) {
-    this.state.formData.username = event.target.value;
-  }
-  handleEChange(event) {
-    this.state.formData.email = event.target.value;
+    let y = {...this.state.formData, "username":event.target.value};
+    this.setState({formData:y});
   }
   handlePChange(event) {
-    this.state.formData.password = event.target.value;
+    let y = {...this.state.formData, "password":event.target.value};
+    this.setState({formData:y});
   }
   render() {
-    const name = UserProfile.getName();
-    // if(name != "")
-    // {
-    //   return (
-    //     <div className="Error">
-    //       <h2>You are already logged in.</h2>
-    //     </div>
-    //   )
-    // }
     return (
       <div className="App">
         <header className="App-header">
           <h1 className="App-title">Sign Up</h1>
         </header>
         <br/><br/>
+        {this.state.error &&
+          <div className="Error">
+            <p>
+              {""+this.state.errorMsg}
+            </p>
+          </div>
+        }
+        <br></br>
         <div className="formContainer">
           <form onSubmit={this.handleSubmit}>
             <div className="form-group">
-                <label>Name</label>
-                <input type="text" className="form-control" value={this.state.Name} onChange={this.handleNChange}/>
-            </div>
-            <div className="form-group">
-                <label>User Name</label>
-                <input type="text" className="form-control" value={this.state.username} onChange={this.handleUChange}/>
-            </div>
-            <div className="form-group">
-                <label>Email</label>
-                <input type="email" className="form-control" value={this.state.email} onChange={this.handleEChange}/>
+                <label>username</label>
+                <input type="username" className="form-control" value={this.state.username} onChange={this.handleUChange}/>
             </div>
             <div className="form-group">
                 <label>Password</label>
@@ -93,16 +86,6 @@ class SignUp extends Component {
                 <button type="submit" className="btn btn-default">Submit</button>
           </form>
         </div>
-
-        {this.state.submitted &&
-          <div>
-            <h2>
-              New user successfully added.
-            </h2>
-             This has been printed using conditional rendering.
-          </div>
-        }
-
       </div>
     );
   }

@@ -24,12 +24,12 @@ class Quizzes extends Component {
   handleViewQuiz= (event)=> {
   event.preventDefault();
     console.log("quizzes");
-    this.context.router.history.push("/Quizzes");
+    this.context.router.history.push("/ViewQuizzes");
   }
   
   render() {
     const name = UserProfile.getName();
-    if(name!="asankalp9@gmail.com")
+    if(name!=="admin")
     {
       return (
         <div className="Error">

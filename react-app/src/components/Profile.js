@@ -29,7 +29,7 @@ class Profile extends Component {
   
   render() {
     const name = UserProfile.getName();
-    if(name=="")
+    if(name==="")
     {
       return (
         <div className="Error">

@@ -3,13 +3,16 @@ import './SignUp.css';
 import UserProfile from './UserProfile';
 import PropTypes from 'prop-types';
 
-class SignUp extends Component {
+class EditQuiz extends Component {
   constructor() {
     super();
     this.state = {
       formData: {
-        Name: "",
-        genre: "science",
+        Question: "",
+        A: "",
+        B: "",
+        C: "",
+        D: "",
       },
       error: false,
       errorMsg: "",
@@ -23,42 +26,43 @@ class SignUp extends Component {
   }
   componentDidMount() {
     const name = UserProfile.getName();
-    if (name === "") {
+    if(name==="")
+    {
       this.context.router.history.push("/Profile");
     }
   }
-  handleSubmit = (event) => {
+  handleSubmit (event) {
     event.preventDefault();
     fetch('http://localhost:8080/quiz', {
-      method: 'POST',
-      body : JSON.stringify(this.state.formData),
-    })
+     method: 'POST',
+     body: JSON.stringify(this.state.formData),
+   })
       .then(response => {
-        if (response.status >= 200 && response.status < 300) {
-          console.log("/EditQuiz/" + this.state.formData.Name)
-          this.context.router.history.push("/ViewQuizzes");
-        }
-        else if (response.status >= 300 && response.status < 350) {
+        if(response.status >= 200 && response.status < 300){
+        this.context.router.history.push("/EditQuiz/");}
+        else if(response.status >= 300 && response.status < 350){
           this.setState({ error: true });
           this.setState({ errorMsg: "Name already exists" });
         }
-        else {
+        else{
           this.setState({ error: true });
-          this.setState({ errorMsg: "Fields Cannot be left empty" });
+          this.setState({ errorMsg: "Fields Cannot be left empty" });  
         }
       });
   }
+
   handleNChange(event) {
-    let y = { ...this.state.formData, "Name": event.target.value };
-    this.setState({ formData: y });
+    let y = {...this.state.formData, "Name":event.target.value};
+    this.setState({formData:y});
   }
   handleGChange(event) {
-    let y = { ...this.state.formData, "genre": event.target.value };
-    this.setState({ formData: y });
+    let y = {...this.state.formData, "genre":event.target.value};
+    this.setState({formData:y});
   }
   render() {
     const name = UserProfile.getName();
-    if (name !== "admin") {
+    if(name!=="admin")
+    {
       return (
         <div className="Error">
           <h2>You are denied access to this page.</h2>
@@ -70,11 +74,11 @@ class SignUp extends Component {
         <header className="App-header">
           <h1 className="App-title">Sign Up</h1>
         </header>
-        <br /><br />
+        <br/><br/>
         {this.state.error &&
           <div className="Error">
             <p>
-              {"" + this.state.errorMsg}
+              {""+this.state.errorMsg}
             </p>
           </div>
         }
@@ -82,19 +86,10 @@ class SignUp extends Component {
         <div className="formContainer">
           <form onSubmit={this.handleSubmit}>
             <div className="form-group">
-              <label>Name</label>
-              <input type="text" className="form-control" value={this.state.Name} onChange={this.handleNChange} />
+                <label>Name</label>
+                <input type="text" className="form-control" value={this.state.Name} onChange={this.handleNChange}/>
             </div>
-            <div className="form-group">
-              <label>Genre</label>
-              <select onChange={this.handleGChange} value={this.state.value}>
-                <option value="science">Science</option>
-                <option value="sports">Sports</option>
-                <option value="tv series">TV Series</option>
-                <option value="gk">General Knowledge</option>
-              </select>
-            </div>
-            <button type="submit" className="btn btn-default">Submit</button>
+            {/* <button type="submit" className="btn btn-default">Submit</button> */}
           </form>
         </div>
       </div>
@@ -102,4 +97,4 @@ class SignUp extends Component {
   }
 }
 
-export default SignUp;
+export default EditQuiz;

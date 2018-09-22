@@ -2,19 +2,20 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import './LogIn.css';
 import UserProfile from './UserProfile';
+
 class LogIn extends Component {
   constructor() {
     super();
     this.state = {
       formData: {
-        email: "",
+        username: "",
         password: "",
       },
       submitted: false,
       error: false,
       errorMsg: "",
     }
-    this.handleEChange = this.handleEChange.bind(this);
+    this.handleUChange = this.handleUChange.bind(this);
     this.handlePChange = this.handlePChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
@@ -23,43 +24,36 @@ class LogIn extends Component {
   }
   componentDidMount() {
     const name = UserProfile.getName();
-    if(name!="")
+    if(name!=="")
     {
       this.context.router.history.push("/Profile");
     }
   }
   handleSubmit = (event) => {
     event.preventDefault();
-    fetch('http://localhost:8080/people/', {
+    fetch('http://localhost:8080/login', {
       method: 'POST',
       body: JSON.stringify(this.state.formData),
     })
       .then(response => {
         if (response.status >= 200 && response.status < 300) {
-          UserProfile.setName(this.state.formData.email);
+          UserProfile.setName(this.state.formData.username);
           this.context.router.history.push("/Profile");
-
         } else {
           this.setState({ error: true });
         }
       }); 
   }
 
-  handleEChange(event) {
-    this.state.formData.email = event.target.value;
+  handleUChange(event) {
+    let y = {...this.state.formData, "username":event.target.value};
+    this.setState({formData:y});
   }
   handlePChange(event) {
-    this.state.formData.password = event.target.value;
+    let y = {...this.state.formData, "password":event.target.value};
+    this.setState({formData:y});
   }
   render() {
-    const name = UserProfile.getName();
-    // if (name != "") {
-    //   return (
-    //     <div className="Error">
-    //       <h2>You are already logged in.</h2>
-    //     </div>
-    //   )
-    // }
     return (
       <div className="App">
         <header className="App-header">
@@ -74,8 +68,8 @@ class LogIn extends Component {
         }
         <form onSubmit={this.handleSubmit}>
           <div className="form-group">
-            <label>Email</label>
-            <input type="email" className="form-control" value={this.state.email} onChange={this.handleEChange} />
+            <label>username</label>
+            <input type="username" className="form-control" value={this.state.username} onChange={this.handleUChange} />
           </div>
           <div className="form-group">
             <label>Password</label>

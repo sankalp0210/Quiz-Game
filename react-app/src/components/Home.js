@@ -11,13 +11,12 @@ class Home extends Component {
   }
   componentDidMount() {
     const name = UserProfile.getName();
-    if(name!="")
+    if(name!=="")
     {
       this.context.router.history.push("/Profile");
     }
   }
   render() {
-    
     return (
       <div className="App">
         <header className="App-header">

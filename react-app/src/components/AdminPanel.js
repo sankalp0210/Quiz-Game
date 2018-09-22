@@ -29,7 +29,7 @@ class AdminPanel extends Component {
   
   render() {
     const name = UserProfile.getName();
-    if(name!="asankalp9@gmail.com")
+    if(name!=="admin")
     {
       return (
         <div className="Error">
