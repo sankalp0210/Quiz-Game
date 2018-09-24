@@ -14,7 +14,7 @@ class LogIn extends Component {
       submitted: false,
       error: false,
       errorMsg: "",
-    }
+    } 
     this.handleUChange = this.handleUChange.bind(this);
     this.handlePChange = this.handlePChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -42,7 +42,7 @@ class LogIn extends Component {
         } else {
           this.setState({ error: true });
         }
-      }); 
+      });  
   }
 
   handleUChange(event) {
@@ -68,7 +68,7 @@ class LogIn extends Component {
         }
         <form onSubmit={this.handleSubmit}>
           <div className="form-group">
-            <label>username</label>
+            <label>Username</label>
             <input type="username" className="form-control" value={this.state.username} onChange={this.handleUChange} />
           </div>
           <div className="form-group">

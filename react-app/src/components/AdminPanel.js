@@ -6,7 +6,7 @@ class AdminPanel extends Component {
   constructor() {
     super();
     this.state = {
-    }
+    };
     this.handleQuiz = this.handleQuiz.bind(this);
     this.handleUsers = this.handleUsers.bind(this);
   }
@@ -20,7 +20,7 @@ class AdminPanel extends Component {
     console.log("users");
     this.context.router.history.push("/ViewPeople");
   }
-  
+
   handleQuiz= (event)=> {
   event.preventDefault();
     console.log("quizzes");
@@ -38,7 +38,7 @@ class AdminPanel extends Component {
         </div>
       )
     }
-    return (
+    return ( 
       <div className="App">
         <p>{"dsv"+name}</p>
         <header className="App-header">

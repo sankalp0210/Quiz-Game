@@ -26,20 +26,25 @@ class ViewQuizzes extends Component {
 
   handleRemove= (event)=> {
     event.preventDefault();
-    fetch('http://localhost:8080/quiz/' + this.state.selectedOption, {
-     method: 'DELETE',
-   })
-      .then(response => {
-        if(response.status >= 200 && response.status < 300){
-          console.log("Deleted");
-          this.context.router.history.push("/Quizzes");
-            // window.location.reload();
-        }
-      });
+    if(this.state.selectedOption!=null)
+    {
+      fetch('http://localhost:8080/quiz/' + this.state.selectedOption, {
+      method: 'DELETE',
+      })
+        .then(response => {
+          if(response.status >= 200 && response.status < 300){
+            console.log("Deleted");
+            this.context.router.history.push("/Quizzes");
+              // window.location.reload();
+          }
+        });
+    }
   }
   handleEdit= (event)=> {
     event.preventDefault();
-    this.context.router.history.push("/EditQuiz/"+this.state.selectedOption);    
+    if(this.state.selectedOption!=null){
+      this.context.router.history.push("/EditQuiz/"+this.state.selectedOption);
+    }    
   }
   handleChange =(event)=> {
     this.state.selectedOption = event.target.value;

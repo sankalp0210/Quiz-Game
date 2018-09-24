@@ -10,7 +10,10 @@ import Profile from './Profile';
 import Logout from './Logout';
 import EditQuiz from './EditQuiz';
 import ViewQuizzes from './ViewQuizzes';
-
+import EditQuestion from './EditQuestion';
+import QuizQuestions from './QuizQuestions';
+import PlayQuiz from './PlayQuiz';
+ 
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 
 class App extends Component {
@@ -40,10 +43,13 @@ class App extends Component {
                  <Route exact path='/CreateQuiz' component={CreateQuiz} />
                  <Route exact path='/ViewPeople' component={ViewPeople} />
                  <Route exact path='/AdminPanel' component={AdminPanel} />
+                 <Route exact path='/PlayQuiz' component={PlayQuiz} />
+                 <Route exact path='/PlayQuiz/:id' component={QuizQuestions} />
                  <Route exact path='/Profile' component={Profile} />
                  <Route exact path='/Logout' component={Logout} />
-                 <Route path='/EditQuiz/' component={EditQuiz} />
+                 <Route path='/EditQuiz/:id' component={EditQuiz} />
                  <Route path='/ViewQuizzes' component={ViewQuizzes} />
+                 <Route path='/EditQuestion/:id' component={EditQuestion} />
             </Switch>
           </div>
         </Router>
