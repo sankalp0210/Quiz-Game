@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import './LogIn.css';
 import UserProfile from './UserProfile';
-
 class LogIn extends Component {
   constructor() {
     super();

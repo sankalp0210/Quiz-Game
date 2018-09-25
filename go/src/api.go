@@ -64,7 +64,9 @@ func main() {
 	r.GET("/question/:id", GetQuestion)
 	r.GET("/hist/:username", GetHist)
 	r.GET("/quizname/:id", GetQuizName)
-	r.GET("/leaderboard/:id", GetLeaderboard)
+	r.GET("/leaderboard/quiz/:id", GetLeaderboardQuiz)
+	r.GET("/leaderboard/genre/:genre", GetLeaderboardGenre)
+	r.GET("/leaderboard/overall", GetLeaderboard)
 	r.POST("/questions/:id", CreateQuestion)
 	r.POST("/editquestions/:id", EditQuestion)
 	r.POST("/login", GetPerson)
@@ -89,8 +91,9 @@ func DeletePerson(c *gin.Context) {
 func DeleteQuiz(c *gin.Context) {
 	id := c.Params.ByName("id")
 	var quiz Quiz
-	d := db.Where("id = ?", id).Delete(&quiz)
-	fmt.Println(d)
+	db.Where("id = ?", id).Delete(&quiz)
+	var question []Question
+	db.Where("quizid = ?", id).Delete(&question)
 	c.Header("access-control-allow-origin", "*")
 	c.JSON(200, gin.H{"id #" + id: "deleted"})
 }
@@ -272,10 +275,32 @@ func GetQuestion(c *gin.Context) {
 	}
 }
 
-func GetLeaderboard(c *gin.Context) {
+func GetLeaderboardQuiz(c *gin.Context) {
 	id := c.Params.ByName("id")
 	var hist []Hist
-	if err := db.Where("quizid = ?", id).Find(&hist).Error; err != nil {
+	if err := db.Where("quizid = ?", id).Order("score desc").Find(&hist).Error; err != nil {
+		c.AbortWithStatus(404)
+		fmt.Println(err)
+	} else {
+		c.Header("access-control-allow-origin", "*")
+		c.JSON(200, hist)
+	}
+}
+func GetLeaderboardGenre(c *gin.Context) {
+	genre := c.Params.ByName("genre")
+	var hist []Hist
+	if err := db.Where("genre = ?", genre).Order("score desc").Find(&hist).Error; err != nil {
+		c.AbortWithStatus(404)
+		fmt.Println(err)
+	} else {
+		c.Header("access-control-allow-origin", "*")
+		c.JSON(200, hist)
+	}
+}
+
+func GetLeaderboard(c *gin.Context) {
+	var hist []Hist
+	if err := db.Order("score desc").Find(&hist).Error; err != nil {
 		c.AbortWithStatus(404)
 		fmt.Println(err)
 	} else {

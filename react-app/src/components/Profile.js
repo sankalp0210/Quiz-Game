@@ -12,9 +12,8 @@ class Profile extends Component {
   static contextTypes = {
     router: PropTypes.object,
   }
-
   handlePlayQuiz= (event)=> {
-  event.preventDefault();
+    event.preventDefault();
     this.context.router.history.push("/PlayQuiz");
   }
   render() {
@@ -37,7 +36,6 @@ class Profile extends Component {
         <button onClick={this.handlePlayQuiz}>Play Quiz</button>
         <br></br>
         <br></br>
-        {/* <button onClick={this.handleUsers}>Users</button> */}
       </div>
     );
   }
