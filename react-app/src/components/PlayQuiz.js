@@ -6,17 +6,21 @@ class PlayQuiz extends Component {
     constructor() {
         super();
         this.state = {
-            genre:"",
             data:[],
             selectedOption: null,
-            display:false,
         }
     }
 
     static contextTypes = {
         router: PropTypes.object,
     }
-
+    componentDidMount (){
+        const request = new Request('http://127.0.0.1:8080/quizzes/'+"science");
+        fetch(request)
+          .then(response => response.json())
+            .then(data => this.setState({data: data}));
+ 
+    }
     handleSubmit = (event) => {
         event.preventDefault();
         if(this.state.selectedOption!=null){
@@ -25,7 +29,6 @@ class PlayQuiz extends Component {
     }
     handleGChange = (event) => {
         event.preventDefault();
-        this.setState({display:true});
         this.setState({selectedOption:null});
         const request = new Request('http://127.0.0.1:8080/quizzes/'+event.target.value);
         fetch(request)
@@ -33,11 +36,11 @@ class PlayQuiz extends Component {
             .then(data => this.setState({data: data}));
     }
     handleChange =(event)=> {
-        this.state.selectedOption = event.target.value;
+        this.setState({ selectedOption: event.target.value });
     }
     render() {
         const name = UserProfile.getName();
-        if (name !== "admin") {
+        if (name === "") {
             return (
                 <div className="Error">
                     <h2>You are denied access to this page.</h2>
@@ -64,7 +67,6 @@ class PlayQuiz extends Component {
                                 <option value="gk">General Knowledge</option>
                             </select>
                         </div>
-                        {this.state.display &&
                         <div className="Error">
 
                             <table className="table-hover">
@@ -87,7 +89,6 @@ class PlayQuiz extends Component {
                             <br></br>
                             <button>Play</button>
                         </div>
-                        }
                     </form>
                 </div>
             </div>

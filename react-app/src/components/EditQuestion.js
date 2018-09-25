@@ -6,8 +6,6 @@ class ViewQuizzes extends Component {
   constructor() {
     super();
     this.state = {
-      // data:{},
-      // formData:{},
       data:{
         quizid: 1,
         Statement:"",
@@ -28,6 +26,7 @@ class ViewQuizzes extends Component {
   static contextTypes = {
     router: PropTypes.object,
   }
+
   // Lifecycle hook, runs after component has mounted onto the DOM structure
   componentDidMount() {
     let id = this.props.match.params.id;
@@ -121,7 +120,6 @@ class ViewQuizzes extends Component {
                 <option value="Image">Image</option>
               </select>
             </div>
-
             <div className="form-group">
             <label>Option A</label>
             <input type="text" className="form-control" onChange={this.handleAChange} value = {this.state.data.optA}/>

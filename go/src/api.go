@@ -37,6 +37,11 @@ type Question struct {
 	AnsC      string `json:"ansC"`
 	AnsD      string `json:"ansD"`
 }
+type Hist struct {
+	Username string `json:"username"`
+	Quizid   string `json:"quizid"`
+	Score    string `json:"score"`
+}
 
 func main() {
 	db, err = gorm.Open("sqlite3", "./gorm.db")
@@ -46,9 +51,9 @@ func main() {
 	defer db.Close()
 	db.LogMode(true)
 	db.AutoMigrate(&User{})
+	db.AutoMigrate(&Hist{})
 	db.AutoMigrate(&Quiz{})
 	db.AutoMigrate(&Question{})
-	// db.Model(&Question{}).AddForeignKey("quizid", "quiz(id)", "CASCADE", "RESTRICT")
 	r := gin.Default()
 	r.GET("/people/", GetPeople)
 	r.GET("/quizzes", GetQuizzes)
@@ -59,6 +64,7 @@ func main() {
 	r.POST("/editquestions/:id", EditQuestion)
 	r.POST("/login", GetPerson)
 	r.POST("/people", CreatePerson)
+	r.POST("/hist", CreateHist)
 	r.POST("/quiz", CreateQuiz)
 	r.DELETE("/people/:id", DeletePerson)
 	r.DELETE("/quiz/:id", DeleteQuiz)
@@ -108,6 +114,14 @@ func CreatePerson(c *gin.Context) {
 		c.JSON(300, person)
 	}
 }
+func CreateHist(c *gin.Context) {
+	var hist Hist
+	c.BindJSON(&hist)
+	db.Create(&hist)
+	c.Header("access-control-allow-origin", "*")
+	c.JSON(200, hist)
+}
+
 func CreateQuiz(c *gin.Context) {
 	var quiz Quiz
 	var quiz2 Quiz
@@ -125,6 +139,7 @@ func CreateQuiz(c *gin.Context) {
 		c.JSON(300, quiz)
 	}
 }
+
 func CreateQuestion(c *gin.Context) {
 	id := c.Params.ByName("id")
 	var question Question

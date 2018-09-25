@@ -32,3 +32,14 @@ th, td {
 .Error {
   color: red;
 }
+.selectedButton {
+  color: black;
+  background-color: lightgreen;
+}
+.next {
+  color:red;
+  background-color: lightblue;
+}
+.a {
+  color: black;
+}

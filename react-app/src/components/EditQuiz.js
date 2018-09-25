@@ -70,7 +70,7 @@ class ViewQuizzes extends Component {
       });
   }
   handleChange =(event)=> {
-    this.state.selectedOption = event.target.value;
+    this.setState({selectedOption : event.target.value});
   }
   render=()=> {
     const name = UserProfile.getName();

@@ -44,7 +44,6 @@ class LogIn extends Component {
         }
       });  
   }
-
   handleUChange(event) {
     let y = {...this.state.formData, "username":event.target.value};
     this.setState({formData:y});
