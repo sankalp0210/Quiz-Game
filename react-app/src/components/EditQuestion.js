@@ -102,7 +102,7 @@ class ViewQuizzes extends Component {
     return (
       <div className="App">
         <header className="App-header">
-          <h1 className="App-title">Edit</h1>
+          <h1 className="App-title">Edit Question</h1>
         </header>
         <form onSubmit = {this.handleSubmit}>
         {/* {this.state.formData.map((this.state.data, key) =>{ */}

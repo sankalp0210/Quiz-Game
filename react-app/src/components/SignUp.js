@@ -42,7 +42,6 @@ class SignUp extends Component {
           this.setState({ errorMsg: "username already exists" });
         }
         else{
-          console.log("sadnabxhv")
           this.setState({ error: true });
           this.setState({ errorMsg: "Fields Cannot be left empty" });  
         }

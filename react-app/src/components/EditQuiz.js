@@ -21,7 +21,6 @@ class ViewQuizzes extends Component {
   // Lifecycle hook, runs after component has mounted onto the DOM structure
   componentDidMount() {
     let id = this.props.match.params.id;
-    console.log("bt" + id);
     const request = new Request('http://127.0.0.1:8080/questions/'+id);
     fetch(request)
       .then(response => response.json())
@@ -37,9 +36,7 @@ class ViewQuizzes extends Component {
       })
         .then(response => {
           if(response.status >= 200 && response.status < 300){
-            console.log("Deleted");
             this.context.router.history.push("/ViewQuizzes");
-              // window.location.reload();
           }
         });
     }
@@ -54,16 +51,14 @@ class ViewQuizzes extends Component {
   handleAdd= (event)=> {
     event.preventDefault();
     let id = this.props.match.params.id;
-    console.log(id);
     fetch('http://localhost:8080/questions/'+id, {
      method: 'POST',
    })
       .then(response => {
         if(response.status >= 200 && response.status < 300){
-          // console.log(response.json())
           response.json()
             .then(
-              data => {console.log(data);this.context.router.history.push("/EditQuestion/"+data)}
+              data => {this.context.router.history.push("/EditQuestion/"+data)}
             )
             // window.location.reload();
         }
@@ -89,7 +84,7 @@ class ViewQuizzes extends Component {
     return (
       <div className="App">
         <header className="App-header">
-          <h1 className="App-title">View All Quizzes</h1>
+          <h1 className="App-title">Edit Quiz</h1>
         </header>
         <form>
         <table className="table-hover">

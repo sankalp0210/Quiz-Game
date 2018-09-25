@@ -17,6 +17,7 @@ class QuizQuestions extends Component {
             result:false,
             score: 0,
             total:0,
+            quizName:"",
             hist:{
                 username:"",
                 score:"",
@@ -37,17 +38,20 @@ class QuizQuestions extends Component {
         .then(data => this.setState({data: data}));
         this.state.hist.quizid = id;
         this.state.hist.username = UserProfile.getName();
+        const request2 = new Request('http://127.0.0.1:8080/quizname/' + id);
+        fetch(request2)
+        .then(response => response.json())
+        .then(data => this.setState({quizName: data}));
     }
     
     handleCheck = () => {
         let y = this.state.data[this.state.index];
         if(this.state.optA === y.ansA && this.state.optB === y.ansB && this.state.optC === y.ansC && this.state.optD === y.ansD)
-        // this.setState({score:this.state.score + 1})
         this.state.score = this.state.score + 1;
     }
     
     handleNext = (event) => {
-        // event.preventDefault();
+        event.preventDefault();
         this.state.total = this.state.data.length;
         this.handleCheck();
         this.state.index = this.state.index + 1;
@@ -64,7 +68,6 @@ class QuizQuestions extends Component {
         this.setState({finish:false});
         this.setState({result:true});
         this.setState({data:null});
-        console.log(this.state.score);
         const request = new Request('http://127.0.0.1:8080/hist');
         fetch(request,{
             method: 'POST',
@@ -137,7 +140,7 @@ class QuizQuestions extends Component {
         return (
             <div className="App">
                 <header className="App-header">
-                    <h1 className="App-title">Administrator Panel</h1>
+                    <h1 className="App-title">{this.state.quizName}</h1>
                 </header>
                 <br></br>
                 <br></br>

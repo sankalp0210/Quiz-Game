@@ -12,6 +12,9 @@ import EditQuiz from './EditQuiz';
 import ViewQuizzes from './ViewQuizzes';
 import EditQuestion from './EditQuestion';
 import QuizQuestions from './QuizQuestions';
+import Leaderboard from './Leaderboard';
+import LeaderboardDisp from './LeaderboardDisp';
+import Hist from './Hist';
 import PlayQuiz from './PlayQuiz';
  
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
@@ -29,6 +32,8 @@ class App extends Component {
                 </div>
                 <ul className="nav navbar-nav">
                   <li><Link to={'/AdminPanel'}>Administrator Panel</Link></li>
+                  <li><Link to={'/Leaderboard'}>LeaderBoard </Link></li>
+                  <li><Link to={'/Hist'}>History</Link></li>
                   <li><Link to={'/SignUp'}>Sign Up</Link></li>
                   <li><Link to={'/LogIn'}>Log In</Link></li>
                   <li><Link to={'/Logout'}>Log Out</Link></li>
@@ -50,6 +55,9 @@ class App extends Component {
                  <Route path='/EditQuiz/:id' component={EditQuiz} />
                  <Route path='/ViewQuizzes' component={ViewQuizzes} />
                  <Route path='/EditQuestion/:id' component={EditQuestion} />
+                 <Route path='/Leaderboard/:id' component={LeaderboardDisp} />
+                 <Route path='/Leaderboard' component={Leaderboard} />
+                 <Route path='/Hist' component={Hist} />
             </Switch>
           </div>
         </Router>

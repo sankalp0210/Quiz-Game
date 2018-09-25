@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './ViewPeople.css';
 import UserProfile from './UserProfile';
 import PropTypes from 'prop-types';
-class PlayQuiz extends Component {
+class LeaderBoard extends Component {
     constructor() {
         super();
         this.state = {
@@ -24,7 +24,7 @@ class PlayQuiz extends Component {
     handleSubmit = (event) => {
         event.preventDefault();
         if(this.state.selectedOption!=null){
-            this.context.router.history.push("/PlayQuiz/" + this.state.selectedOption);
+            this.context.router.history.push("/Leaderboard/" + this.state.selectedOption);
         }
     }
     handleGChange = (event) => {
@@ -52,7 +52,7 @@ class PlayQuiz extends Component {
     return (
             <div className="App">
                 <header className="App-header">
-                    <h1 className="App-title">Select Quiz</h1>
+                    <h1 className="App-title">LeaderBoard</h1>
                 </header>
                 <br></br>
                 <br></br>
@@ -87,7 +87,7 @@ class PlayQuiz extends Component {
                                 </tbody>
                             </table>
                             <br></br>
-                            <button>Play</button>
+                            <button>Show Leaderboard</button>
                         </div>
                     </form>
                 </div>
@@ -96,4 +96,4 @@ class PlayQuiz extends Component {
     }
 }
 
-export default PlayQuiz;
+export default LeaderBoard;

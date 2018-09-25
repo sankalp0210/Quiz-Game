@@ -17,13 +17,11 @@ class Quizzes extends Component {
 
   handleCreateQuiz= (event)=> {
     event.preventDefault();
-    // console.log("users");
     this.context.router.history.push("/CreateQuiz");
   }
   
   handleViewQuiz= (event)=> {
   event.preventDefault();
-    console.log("quizzes");
     this.context.router.history.push("/ViewQuizzes");
   }
   
@@ -33,16 +31,14 @@ class Quizzes extends Component {
     {
       return (
         <div className="Error">
-          {/* <p>{"bt"+name}</p> */}
           <h2>You are denied access to this page.</h2>
         </div>
       )
     }
     return (
       <div className="App">
-        <p>{"dsv"+name}</p>
         <header className="App-header">
-          <h1 className="App-title">Administrator Panel</h1>
+          <h1 className="App-title">Quizzes</h1>
         </header>
         <br></br>
         <br></br>

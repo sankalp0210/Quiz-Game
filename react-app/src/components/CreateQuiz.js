@@ -35,7 +35,6 @@ class SignUp extends Component {
     })
       .then(response => {
         if (response.status >= 200 && response.status < 300) {
-          console.log("/EditQuiz/" + this.state.formData.Name)
           this.context.router.history.push("/ViewQuizzes");
         }
         else if (response.status >= 300 && response.status < 350) {
@@ -68,7 +67,7 @@ class SignUp extends Component {
     return (
       <div className="App">
         <header className="App-header">
-          <h1 className="App-title">Sign Up</h1>
+          <h1 className="App-title">Add a Quiz</h1>
         </header>
         <br /><br />
         {this.state.error &&

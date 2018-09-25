@@ -33,7 +33,6 @@ class ViewQuizzes extends Component {
       })
         .then(response => {
           if(response.status >= 200 && response.status < 300){
-            console.log("Deleted");
             this.context.router.history.push("/Quizzes");
               // window.location.reload();
           }

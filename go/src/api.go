@@ -41,6 +41,8 @@ type Hist struct {
 	Username string `json:"username"`
 	Quizid   string `json:"quizid"`
 	Score    string `json:"score"`
+	Name     string `json:"Name"`
+	Genre    string `json:"genre"`
 }
 
 func main() {
@@ -60,6 +62,9 @@ func main() {
 	r.GET("/questions/:id", GetQuestions)
 	r.GET("/quizzes/:genre", GetQuizzesGenre)
 	r.GET("/question/:id", GetQuestion)
+	r.GET("/hist/:username", GetHist)
+	r.GET("/quizname/:id", GetQuizName)
+	r.GET("/leaderboard/:id", GetLeaderboard)
 	r.POST("/questions/:id", CreateQuestion)
 	r.POST("/editquestions/:id", EditQuestion)
 	r.POST("/login", GetPerson)
@@ -115,8 +120,12 @@ func CreatePerson(c *gin.Context) {
 	}
 }
 func CreateHist(c *gin.Context) {
+	var quiz Quiz
 	var hist Hist
 	c.BindJSON(&hist)
+	db.Where("id = ?", hist.Quizid).Last(&quiz)
+	hist.Name = quiz.Name
+	hist.Genre = quiz.Genre
 	db.Create(&hist)
 	c.Header("access-control-allow-origin", "*")
 	c.JSON(200, hist)
@@ -193,6 +202,17 @@ func GetPeople(c *gin.Context) {
 		c.JSON(200, people)
 	}
 }
+func GetHist(c *gin.Context) {
+	username := c.Params.ByName("username")
+	var hist []Hist
+	if err := db.Where("username = ?", username).Find(&hist).Error; err != nil {
+		c.AbortWithStatus(404)
+		fmt.Println(err)
+	} else {
+		c.Header("access-control-allow-origin", "*")
+		c.JSON(200, hist)
+	}
+}
 
 func GetQuizzes(c *gin.Context) {
 	var quizzes []Quiz
@@ -204,6 +224,18 @@ func GetQuizzes(c *gin.Context) {
 		c.JSON(200, quizzes)
 	}
 }
+func GetQuizName(c *gin.Context) {
+	id := c.Params.ByName("id")
+	var quiz Quiz
+	if err := db.Where("id = ?", id).First(&quiz).Error; err != nil {
+		c.AbortWithStatus(404)
+		fmt.Println(err)
+	} else {
+		c.Header("access-control-allow-origin", "*")
+		c.JSON(200, quiz.Name)
+	}
+}
+
 func GetQuizzesGenre(c *gin.Context) {
 	var quizzes []Quiz
 	genre := c.Params.ByName("genre")
@@ -237,5 +269,17 @@ func GetQuestion(c *gin.Context) {
 		fmt.Println(question)
 		c.Header("access-control-allow-origin", "*")
 		c.JSON(200, question)
+	}
+}
+
+func GetLeaderboard(c *gin.Context) {
+	id := c.Params.ByName("id")
+	var hist []Hist
+	if err := db.Where("quizid = ?", id).Find(&hist).Error; err != nil {
+		c.AbortWithStatus(404)
+		fmt.Println(err)
+	} else {
+		c.Header("access-control-allow-origin", "*")
+		c.JSON(200, hist)
 	}
 }

@@ -15,7 +15,6 @@ class Profile extends Component {
 
   handlePlayQuiz= (event)=> {
   event.preventDefault();
-    console.log("quizzes");
     this.context.router.history.push("/PlayQuiz");
   }
   render() {

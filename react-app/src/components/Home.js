@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import NewComponent from './NewComponent';
 import UserProfile from './UserProfile';
 import PropTypes from 'prop-types';
 import './Home.css'
@@ -22,7 +21,7 @@ class Home extends Component {
         <header className="App-header">
           <h1 className="App-title">Welcome to React</h1>
         </header>
-        <NewComponent text={"This text comes from another component called newComponent.js"}/>
+        <h2>Welcome to the Quiz-App</h2>
       </div>
     );
   }
