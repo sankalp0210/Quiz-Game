@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import './LogIn.css';
 import UserProfile from './UserProfile';
+import GoogleLogin from 'react-google-login';
+
 class LogIn extends Component {
   constructor() {
     super();
@@ -20,6 +22,9 @@ class LogIn extends Component {
   }
   static contextTypes = {
     router: PropTypes.object,
+  }
+  responseGoogle = (response) => {
+    console.log(response);
   }
   componentDidMount() {
     const name = UserProfile.getName();
@@ -75,6 +80,17 @@ class LogIn extends Component {
           </div>
           <br></br>
           <button>Log In</button>
+          <br></br>
+          <br></br>
+          <GoogleLogin
+            clientId="
+            783136379296-t1m0f2c2fd8f758tkpukb5ao21rj9lqk.apps.googleusercontent.com
+            "
+            buttonText="Login With Google"
+            onSuccess={this.responseGoogle}
+            onFailure={this.responseGoogle}
+          />
+          {document.getElementById('googleButton')}
         </form>
         <br></br>
         <br></br>

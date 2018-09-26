@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './ViewPeople.css';
 import UserProfile from './UserProfile';
 import PropTypes from 'prop-types';
+import ReactPlayer from 'react-player'
 class QuizQuestions extends Component {
     constructor() {
         super();
@@ -150,7 +151,21 @@ class QuizQuestions extends Component {
                             <div>
                                 {this.state.data && this.state.data.length>0 &&
                                     <div>
-                                        <h3>Q.   {y.Statement}</h3>
+                                        {y.Type === "Image" &&
+                                            <div>
+                                                <h3>Q. Identify ?</h3>
+                                                <img className = "img" src = {y.Statement}/>
+                                            </div>
+                                        }
+                                        {y.Type === "Video" &&
+                                            <div>
+                                                <h3>Q. Identify ?</h3>
+                                                <ReactPlayer className = "video" url={y.Statement} playing />
+                                            </div>
+                                        }
+                                        {y.Type !== "Image" && y.Type !== "Video" &&
+                                            <h3>Q.   {y.Statement}</h3>
+                                        }
                                         <h4>
                                             <br></br>
                                             <br></br>

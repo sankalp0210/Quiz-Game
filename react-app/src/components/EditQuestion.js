@@ -118,6 +118,7 @@ class ViewQuizzes extends Component {
                 <option value="Single Correct">Single Correct</option>
                 <option value="Multiple Correct">Multiple Correct</option>
                 <option value="Image">Image</option>
+                <option value="Video">Video</option>
               </select>
             </div>
             <div className="form-group">
