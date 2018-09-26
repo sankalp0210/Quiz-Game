@@ -19,7 +19,6 @@ import LeaderboardQuiz from './LeaderboardQuiz';
 import LeaderboardQuizDisp from './LeaderboardQuizDisp';
 import Hist from './Hist';
 import PlayQuiz from './PlayQuiz';
-import UserProfile from './UserProfile';
 
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 
@@ -27,14 +26,23 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
-        username:"",
-      };
+      admin: false,
+      loggedIn: false,
+    }
   }
-  componentDidMount (){
-    const name = UserProfile.getName();
-    this.setState({username:name});  
-  }
+
   render() {
+    const name = localStorage.getItem("username");
+    if(name === "admin"){
+      this.state.loggedIn = true;
+      this.state.admin = true;
+    }
+    else if(name !== null)
+      this.state.loggedIn = true;
+    else{
+      this.state.loggedIn = false;
+      this.state.admin = false;
+    }
     return (
       <div>
         <Router>
@@ -44,24 +52,24 @@ class App extends Component {
                 <div className="navbar-header">
                   <Link className="navbar-brand" to={'/'}>Home</Link>
                 </div>
-                  {/* {this.state.username === "admin" && */}
+                  {this.state.admin &&
                     <ul className="nav navbar-nav">
                       <li><Link to={'/AdminPanel'}>Administrator Panel</Link></li>
                     </ul>
-                  {/* } */}
-                  {/* {this.state.username === "" && */}
+                  }
+                  {!this.state.loggedIn &&
                     <ul className="nav navbar-nav">
                       <li><Link to={'/SignUp'}>Sign Up</Link></li>
                       <li><Link to={'/LogIn'}>Log In</Link></li>
                     </ul>
-                  {/* } */}
-                  {/* {this.state.username !== "" && */}
+                  }
+                  {this.state.loggedIn &&
                     <ul className="nav navbar-nav">
                       <li><Link to={'/Hist'}>History</Link></li>
                       <li><Link to={'/Leaderboard'}>LeaderBoard </Link></li>
                       <li><Link to={'/Logout'}>Log Out</Link></li>
                     </ul>
-                  {/* } */}
+                  }
               </div>
             </nav>
             <Switch>

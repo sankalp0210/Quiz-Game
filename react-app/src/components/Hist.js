@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import './ViewPeople.css';
 import PropTypes from 'prop-types';
-import UserProfile from './UserProfile';
 class ViewPeople extends Component {
   constructor() {
     super();
@@ -14,15 +13,16 @@ class ViewPeople extends Component {
     router: PropTypes.object,
   }
   componentDidMount() {
-    const request = new Request('http://127.0.0.1:8080/hist/' + UserProfile.getName());
+    const name = localStorage.getItem("username");
+    const request = new Request('http://127.0.0.1:8080/hist/' + name);
     fetch(request)
       .then(response => response.json())
         .then(data => this.setState({data: data}));
   }
   
   render=()=> {
-    const name = UserProfile.getName();
-    if(name==="")
+    const name = localStorage.getItem("username");
+    if(name===null)
     {
       return (
         <div className="Error">

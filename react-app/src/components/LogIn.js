@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import './LogIn.css';
-import UserProfile from './UserProfile';
 import GoogleLogin from 'react-google-login';
 
 class LogIn extends Component {
@@ -26,17 +25,18 @@ class LogIn extends Component {
   responseGoogle = (response) => {
     this.state.formData.username = response.w3.U3;
     this.state.formData.password = "not required";
-    UserProfile.setName(this.state.formData.username);
+    localStorage.setItem("username", this.state.formData.username)
     fetch('http://localhost:8080/people', {
      method: 'POST',
      body: JSON.stringify(this.state.formData),
      });
+     window.location.reload();
     this.context.router.history.push("/Profile")
   }
   
   componentDidMount() {
-    const name = UserProfile.getName();
-    if(name!=="")
+    const name = localStorage.getItem("username");
+    if(name!==null)
     {
       this.context.router.history.push("/Profile");
     }
@@ -50,12 +50,13 @@ class LogIn extends Component {
     })
       .then(response => {
         if (response.status >= 200 && response.status < 300) {
-          UserProfile.setName(this.state.formData.username);
-          this.context.router.history.push("/Profile");
+          localStorage.setItem("username", this.state.formData.username)
+     window.location.reload();
+     this.context.router.history.push("/Profile");
         } else {
           this.setState({ error: true });
         }
-      });  
+      });
   }
   handleUChange(event) {
     let y = {...this.state.formData, "username":event.target.value};

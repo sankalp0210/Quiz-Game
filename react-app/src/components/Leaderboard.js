@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import './ViewPeople.css';
-import UserProfile from './UserProfile';
 import PropTypes from 'prop-types';
 class LeaderBoard extends Component {
     constructor() {
@@ -23,8 +22,8 @@ class LeaderBoard extends Component {
         this.context.router.history.push("/LeaderboardQuiz");
     }
     render() {
-        const name = UserProfile.getName();
-        if (name === "") {
+    const name = localStorage.getItem("username");
+        if (name === null) {
             return (
                 <div className="Error">
                     <h2>You are denied access to this page.</h2>

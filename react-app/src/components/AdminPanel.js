@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import './ViewPeople.css';
-import UserProfile from './UserProfile';
 import PropTypes from 'prop-types';
 class AdminPanel extends Component {
   constructor() {
@@ -26,7 +25,7 @@ class AdminPanel extends Component {
   }
   
   render() {
-    const name = UserProfile.getName();
+    const name = localStorage.getItem("username");
     if(name!=="admin")
     {
       return (

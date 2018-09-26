@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import './ViewPeople.css';
 import PropTypes from 'prop-types';
-import UserProfile from './UserProfile';
 class ViewQuizzes extends Component {
   constructor() {
     super();
@@ -49,7 +48,7 @@ class ViewQuizzes extends Component {
     this.setState({selectedOption : event.target.value});
   }
   render=()=> {
-    const name = UserProfile.getName();
+    const name = localStorage.getItem("username");
     if(name!=="admin")
     {
       return (

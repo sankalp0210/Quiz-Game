@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import './ViewPeople.css';
 import PropTypes from 'prop-types';
-import UserProfile from './UserProfile';
 class LeaderBoardQuizDisp extends Component {
   constructor() {
     super();
@@ -27,8 +26,8 @@ class LeaderBoardQuizDisp extends Component {
     }
 
   render=()=> {
-    const name = UserProfile.getName();
-    if(name==="")
+    const name = localStorage.getItem("username");
+    if(name===null)
     {
       return (
         <div className="Error">

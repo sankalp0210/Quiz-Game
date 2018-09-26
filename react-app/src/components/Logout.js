@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import './ViewPeople.css';
-import UserProfile from './UserProfile';
 import PropTypes from 'prop-types';
 
 class Logout extends Component {
@@ -9,15 +8,9 @@ class Logout extends Component {
     router: PropTypes.object,
   }
   componentDidMount() {
-    const name = UserProfile.getName();
-    if(name===""){
-        this.context.router.history.push("/");
-    }
-    else
-    {
-        UserProfile.setName("");
-        this.context.router.history.push("/");
-    }
+    localStorage.clear()
+    window.location.reload();
+    this.context.router.history.push("/");
   }
   render()
   {

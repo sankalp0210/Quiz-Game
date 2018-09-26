@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import './SignUp.css';
-import UserProfile from './UserProfile';
 import PropTypes from 'prop-types';
 
 class SignUp extends Component {
@@ -22,8 +21,8 @@ class SignUp extends Component {
     router: PropTypes.object,
   }
   componentDidMount() {
-    const name = UserProfile.getName();
-    if(name!=="")
+    const name = localStorage.getItem("username");
+    if(name!==null)
     {
       this.context.router.history.push("/Profile");
     }

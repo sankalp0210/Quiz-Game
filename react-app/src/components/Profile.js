@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import './ViewPeople.css';
-import UserProfile from './UserProfile';
 import PropTypes from 'prop-types';
 class Profile extends Component {
   constructor() {
@@ -8,7 +7,6 @@ class Profile extends Component {
     this.state = {
     }
   }
-
   static contextTypes = {
     router: PropTypes.object,
   }
@@ -17,8 +15,8 @@ class Profile extends Component {
     this.context.router.history.push("/PlayQuiz");
   }
   render() {
-    const name = UserProfile.getName();
-    if(name==="")
+    const name = localStorage.getItem("username");
+    if(name===null)
     {
       return (
         <div className="Error">

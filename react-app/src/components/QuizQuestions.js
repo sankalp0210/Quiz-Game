@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import './ViewPeople.css';
-import UserProfile from './UserProfile';
 import PropTypes from 'prop-types';
 import ReactPlayer from 'react-player'
 class QuizQuestions extends Component {
@@ -40,7 +39,7 @@ class QuizQuestions extends Component {
         .then(response => response.json())
         .then(data => this.setState({data: data}));
         this.state.hist.quizid = id;
-        this.state.hist.username = UserProfile.getName();
+        this.state.hist.username = localStorage.getItem("username");
         const request2 = new Request('http://127.0.0.1:8080/quizname/' + id);
         fetch(request2)
         .then(response => response.json())
@@ -137,8 +136,8 @@ class QuizQuestions extends Component {
     }
 
     render() {
-        const name = UserProfile.getName();
-        if (name === "") {
+    const name = localStorage.getItem("username");
+        if (name === null) {
             return (
                 <div className="Error">
                     <h2>You are denied access to this page.</h2>

@@ -83,8 +83,7 @@ func main() {
 func DeletePerson(c *gin.Context) {
 	id := c.Params.ByName("id")
 	var person User
-	d := db.Where("id = ?", id).Delete(&person)
-	fmt.Println(d)
+	db.Where("id = ?", id).Delete(&person)
 	c.Header("access-control-allow-origin", "*")
 	c.JSON(200, gin.H{"id #" + id: "deleted"})
 }

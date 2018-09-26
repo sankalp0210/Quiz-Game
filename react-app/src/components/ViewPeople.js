@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import './ViewPeople.css';
 import PropTypes from 'prop-types';
-import UserProfile from './UserProfile';
 class ViewPeople extends Component {
   constructor() {
     super();
@@ -29,7 +28,7 @@ class ViewPeople extends Component {
    })
       .then(response => {
         if(response.status >= 200 && response.status < 300){
-          this.context.router.history.push("/AdminPanel");
+          window.location.reload();
         }
       });
   }
@@ -37,7 +36,7 @@ class ViewPeople extends Component {
     this.setState({ selectedOption: event.target.value });
   }
   render=()=> {
-    const name = UserProfile.getName();
+    const name = localStorage.getItem("username");
     if(name!=="admin")
     {
       return (

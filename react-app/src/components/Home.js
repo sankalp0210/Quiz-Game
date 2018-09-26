@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import UserProfile from './UserProfile';
 import PropTypes from 'prop-types';
 import './Home.css'
 
@@ -9,8 +8,8 @@ class Home extends Component {
     router: PropTypes.object,
   }
   componentDidMount() {
-    const name = UserProfile.getName();
-    if(name!=="")
+    const name = localStorage.getItem("username");
+    if(name!==null)
     {
       this.context.router.history.push("/Profile");
     }
