@@ -16,6 +16,8 @@ class QuizQuestions extends Component {
             finish: false,
             notFinish: true,
             result:false,
+            pass:true,
+            show:true,
             score: 0,
             total:0,
             quizName:"",
@@ -104,6 +106,35 @@ class QuizQuestions extends Component {
         else
             this.setState({optD : "0"});
     }
+    handleShow =(event)=>{
+        event.preventDefault();
+        let y = this.state.data[this.state.index];
+        if(this.state.show)
+        {
+            this.setState({show:false});
+            if(y.ansA === "1")
+                this.setState({optA : "1"});
+            else if(y.ansB === "1")
+                this.setState({optB : "1"});
+            else if(y.ansC === "1")
+                this.setState({optC : "1"});
+            else if(y.ansD === "1")
+                this.setState({optD : "1"});
+        }
+    }
+    handlePass =(event)=>{
+        event.preventDefault();
+        if(this.state.pass)
+        {
+            let s = this.state.score;
+            if(this.state.notFinish)
+                this.handleNext(event);
+            else if(this.state.finish)
+                this.handleFinish(event);
+            this.state.score = s + 1;
+            this.setState({pass:false});
+        }
+    }
 
     render() {
         const name = UserProfile.getName();
@@ -180,6 +211,19 @@ class QuizQuestions extends Component {
                                             <br></br>
                                             <button  className = {d} onClick = {this.chD}>{y.optD}</button>
                                             <br></br>
+                                            <br></br>
+                                            {(this.state.pass || this.state.show) &&
+                                                <p>Lifeline -></p>
+                                            }
+                                            {this.state.pass &&
+                                                <button onClick = {this.handlePass}>Pass this question</button>
+                                            }
+                                            {this.state.show &&
+                                                <button onClick = {this.handleShow}>Show a Correct Answer</button>
+                                            }
+                                            {!this.state.pass && !this.state.show &&
+                                                <p>You don't have any lifelines left.</p>
+                                            }
                                         </h4>
                                     </div>
                                 }
@@ -194,6 +238,9 @@ class QuizQuestions extends Component {
                             {this.state.result && 
                                 <h3>Your Final Score is {this.state.score}/{this.state.total}</h3>
                             }
+                            <br></br>
+                            <br></br>
+                            <br></br>
                         </div>
                     </form>
                 </div>

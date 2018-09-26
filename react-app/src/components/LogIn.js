@@ -24,8 +24,16 @@ class LogIn extends Component {
     router: PropTypes.object,
   }
   responseGoogle = (response) => {
-    console.log(response);
+    this.state.formData.username = response.w3.U3;
+    this.state.formData.password = "not required";
+    UserProfile.setName(this.state.formData.username);
+    fetch('http://localhost:8080/people', {
+     method: 'POST',
+     body: JSON.stringify(this.state.formData),
+     });
+    this.context.router.history.push("/Profile")
   }
+  
   componentDidMount() {
     const name = UserProfile.getName();
     if(name!=="")
@@ -33,6 +41,7 @@ class LogIn extends Component {
       this.context.router.history.push("/Profile");
     }
   }
+
   handleSubmit = (event) => {
     event.preventDefault();
     fetch('http://localhost:8080/login', {
@@ -83,9 +92,7 @@ class LogIn extends Component {
           <br></br>
           <br></br>
           <GoogleLogin
-            clientId="
-            783136379296-t1m0f2c2fd8f758tkpukb5ao21rj9lqk.apps.googleusercontent.com
-            "
+            clientId="34634838270-qrrefd554nfo901bhqsmtvp5ap47nepc.apps.googleusercontent.com"
             buttonText="Login With Google"
             onSuccess={this.responseGoogle}
             onFailure={this.responseGoogle}
